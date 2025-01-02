@@ -23,7 +23,7 @@ WORKDIR /usr/local/tomcat/webapps/
 COPY --from=builder /app/target/Hibernet-Spring-web-0.0.1-SNAPSHOT.war app.war
 
 # Expose the default port
-EXPOSE 8080
+EXPOSE 9897
 
 # Start the application
 ENTRYPOINT ["java", "-jar", "app.war"]
