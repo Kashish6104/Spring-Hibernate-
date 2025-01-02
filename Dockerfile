@@ -11,10 +11,10 @@ COPY pom.xml .
 COPY src ./src
 
 # Build the application, skipping tests
-RUN commandan package  -DskipTests
+RUN mvn package -DskipTests
 
-# Second stage: Create a minimal image with OpenJDK 21 and Tomcat
-FROM alpine/java:21-alpine
+# Second stage: Create a minimal image with OpenJDK 21
+FROM amazoncorretto:21-alpine
 
 # Set working directory to Tomcat's webapps directory
 WORKDIR /usr/local/tomcat/webapps/
@@ -22,7 +22,7 @@ WORKDIR /usr/local/tomcat/webapps/
 # Copy the built WAR file from the builder stage
 COPY --from=builder /app/target/Hibernet-Spring-web-0.0.1-SNAPSHOT.war app.war
 
-# Expose the default port
+# Expose the custom port
 EXPOSE 9897
 
 # Start the application
